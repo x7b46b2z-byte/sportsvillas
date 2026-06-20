@@ -9,27 +9,265 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UpcomingRouteImport } from './routes/upcoming'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as LeaguesRouteImport } from './routes/leagues'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as WatchSlugRouteImport } from './routes/watch.$slug'
+import { Route as SportSlugRouteImport } from './routes/sport.$slug'
+import { Route as CompetitionSlugRouteImport } from './routes/competition.$slug'
 
-export interface FileRoutesByFullPath {}
-export interface FileRoutesByTo {}
+const UpcomingRoute = UpcomingRouteImport.update({
+  id: '/upcoming',
+  path: '/upcoming',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeaguesRoute = LeaguesRouteImport.update({
+  id: '/leagues',
+  path: '/leagues',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WatchSlugRoute = WatchSlugRouteImport.update({
+  id: '/watch/$slug',
+  path: '/watch/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SportSlugRoute = SportSlugRouteImport.update({
+  id: '/sport/$slug',
+  path: '/sport/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompetitionSlugRoute = CompetitionSlugRouteImport.update({
+  id: '/competition/$slug',
+  path: '/competition/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/leagues': typeof LeaguesRoute
+  '/privacy': typeof PrivacyRoute
+  '/search': typeof SearchRoute
+  '/terms': typeof TermsRoute
+  '/upcoming': typeof UpcomingRoute
+  '/competition/$slug': typeof CompetitionSlugRoute
+  '/sport/$slug': typeof SportSlugRoute
+  '/watch/$slug': typeof WatchSlugRoute
+}
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/leagues': typeof LeaguesRoute
+  '/privacy': typeof PrivacyRoute
+  '/search': typeof SearchRoute
+  '/terms': typeof TermsRoute
+  '/upcoming': typeof UpcomingRoute
+  '/competition/$slug': typeof CompetitionSlugRoute
+  '/sport/$slug': typeof SportSlugRoute
+  '/watch/$slug': typeof WatchSlugRoute
+}
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/leagues': typeof LeaguesRoute
+  '/privacy': typeof PrivacyRoute
+  '/search': typeof SearchRoute
+  '/terms': typeof TermsRoute
+  '/upcoming': typeof UpcomingRoute
+  '/competition/$slug': typeof CompetitionSlugRoute
+  '/sport/$slug': typeof SportSlugRoute
+  '/watch/$slug': typeof WatchSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: never
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/leagues'
+    | '/privacy'
+    | '/search'
+    | '/terms'
+    | '/upcoming'
+    | '/competition/$slug'
+    | '/sport/$slug'
+    | '/watch/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: never
-  id: '__root__'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/leagues'
+    | '/privacy'
+    | '/search'
+    | '/terms'
+    | '/upcoming'
+    | '/competition/$slug'
+    | '/sport/$slug'
+    | '/watch/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/leagues'
+    | '/privacy'
+    | '/search'
+    | '/terms'
+    | '/upcoming'
+    | '/competition/$slug'
+    | '/sport/$slug'
+    | '/watch/$slug'
   fileRoutesById: FileRoutesById
 }
-export interface RootRouteChildren {}
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {}
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
+  LeaguesRoute: typeof LeaguesRoute
+  PrivacyRoute: typeof PrivacyRoute
+  SearchRoute: typeof SearchRoute
+  TermsRoute: typeof TermsRoute
+  UpcomingRoute: typeof UpcomingRoute
+  CompetitionSlugRoute: typeof CompetitionSlugRoute
+  SportSlugRoute: typeof SportSlugRoute
+  WatchSlugRoute: typeof WatchSlugRoute
 }
 
-const rootRouteChildren: RootRouteChildren = {}
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/upcoming': {
+      id: '/upcoming'
+      path: '/upcoming'
+      fullPath: '/upcoming'
+      preLoaderRoute: typeof UpcomingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leagues': {
+      id: '/leagues'
+      path: '/leagues'
+      fullPath: '/leagues'
+      preLoaderRoute: typeof LeaguesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/watch/$slug': {
+      id: '/watch/$slug'
+      path: '/watch/$slug'
+      fullPath: '/watch/$slug'
+      preLoaderRoute: typeof WatchSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sport/$slug': {
+      id: '/sport/$slug'
+      path: '/sport/$slug'
+      fullPath: '/sport/$slug'
+      preLoaderRoute: typeof SportSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/competition/$slug': {
+      id: '/competition/$slug'
+      path: '/competition/$slug'
+      fullPath: '/competition/$slug'
+      preLoaderRoute: typeof CompetitionSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
+}
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
+  LeaguesRoute: LeaguesRoute,
+  PrivacyRoute: PrivacyRoute,
+  SearchRoute: SearchRoute,
+  TermsRoute: TermsRoute,
+  UpcomingRoute: UpcomingRoute,
+  CompetitionSlugRoute: CompetitionSlugRoute,
+  SportSlugRoute: SportSlugRoute,
+  WatchSlugRoute: WatchSlugRoute,
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
