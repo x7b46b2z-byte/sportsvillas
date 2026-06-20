@@ -79,15 +79,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "IdeaClick Sports — Live Sports Streaming" },
+      { title: "Sports Villas — Live Sports Streaming" },
       { name: "description", content: "Watch live football, cricket, NBA, F1, UFC and more. Schedules, scores, and free embedded streams in one place." },
       { name: "author", content: "IdeaClick Sports" },
-      { property: "og:title", content: "IdeaClick Sports" },
-      { property: "og:description", content: "Live sports streaming aggregator — football, cricket, basketball, F1, UFC and more." },
+      { property: "og:title", content: "Sports Villas — Live Sports Streaming" },
+      { property: "og:description", content: "Watch live football, cricket, NBA, F1, UFC and more. Schedules, scores, and free embedded streams in one place." },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "IdeaClick Sports" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@IdeaClick" },
+      { name: "twitter:title", content: "Sports Villas — Live Sports Streaming" },
+      { name: "twitter:description", content: "Watch live football, cricket, NBA, F1, UFC and more. Schedules, scores, and free embedded streams in one place." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/69b42cb1-18b7-467d-88f9-67d0c99673f0" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/69b42cb1-18b7-467d-88f9-67d0c99673f0" },
     ],
     links: [
       {
