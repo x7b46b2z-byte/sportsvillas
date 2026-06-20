@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UpcomingRouteImport } from './routes/upcoming'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LeaguesRouteImport } from './routes/leagues'
@@ -23,6 +24,10 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as WatchSlugRouteImport } from './routes/watch.$slug'
 import { Route as SportSlugRouteImport } from './routes/sport.$slug'
 import { Route as CompetitionSlugRouteImport } from './routes/competition.$slug'
+import { Route as AdminSportsRouteImport } from './routes/admin.sports'
+import { Route as AdminMatchesRouteImport } from './routes/admin.matches'
+import { Route as AdminCompetitionsRouteImport } from './routes/admin.competitions'
+import { Route as AdminAdsRouteImport } from './routes/admin.ads'
 
 const UpcomingRoute = UpcomingRouteImport.update({
   id: '/upcoming',
@@ -32,6 +37,11 @@ const UpcomingRoute = UpcomingRouteImport.update({
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SearchRoute = SearchRouteImport.update({
@@ -94,6 +104,26 @@ const CompetitionSlugRoute = CompetitionSlugRouteImport.update({
   path: '/competition/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminSportsRoute = AdminSportsRouteImport.update({
+  id: '/sports',
+  path: '/sports',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMatchesRoute = AdminMatchesRouteImport.update({
+  id: '/matches',
+  path: '/matches',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCompetitionsRoute = AdminCompetitionsRouteImport.update({
+  id: '/competitions',
+  path: '/competitions',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAdsRoute = AdminAdsRouteImport.update({
+  id: '/ads',
+  path: '/ads',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -104,8 +134,13 @@ export interface FileRoutesByFullPath {
   '/leagues': typeof LeaguesRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/upcoming': typeof UpcomingRoute
+  '/admin/ads': typeof AdminAdsRoute
+  '/admin/competitions': typeof AdminCompetitionsRoute
+  '/admin/matches': typeof AdminMatchesRoute
+  '/admin/sports': typeof AdminSportsRoute
   '/competition/$slug': typeof CompetitionSlugRoute
   '/sport/$slug': typeof SportSlugRoute
   '/watch/$slug': typeof WatchSlugRoute
@@ -119,8 +154,13 @@ export interface FileRoutesByTo {
   '/leagues': typeof LeaguesRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/upcoming': typeof UpcomingRoute
+  '/admin/ads': typeof AdminAdsRoute
+  '/admin/competitions': typeof AdminCompetitionsRoute
+  '/admin/matches': typeof AdminMatchesRoute
+  '/admin/sports': typeof AdminSportsRoute
   '/competition/$slug': typeof CompetitionSlugRoute
   '/sport/$slug': typeof SportSlugRoute
   '/watch/$slug': typeof WatchSlugRoute
@@ -136,8 +176,13 @@ export interface FileRoutesById {
   '/leagues': typeof LeaguesRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/upcoming': typeof UpcomingRoute
+  '/admin/ads': typeof AdminAdsRoute
+  '/admin/competitions': typeof AdminCompetitionsRoute
+  '/admin/matches': typeof AdminMatchesRoute
+  '/admin/sports': typeof AdminSportsRoute
   '/competition/$slug': typeof CompetitionSlugRoute
   '/sport/$slug': typeof SportSlugRoute
   '/watch/$slug': typeof WatchSlugRoute
@@ -154,8 +199,13 @@ export interface FileRouteTypes {
     | '/leagues'
     | '/privacy'
     | '/search'
+    | '/sitemap.xml'
     | '/terms'
     | '/upcoming'
+    | '/admin/ads'
+    | '/admin/competitions'
+    | '/admin/matches'
+    | '/admin/sports'
     | '/competition/$slug'
     | '/sport/$slug'
     | '/watch/$slug'
@@ -169,8 +219,13 @@ export interface FileRouteTypes {
     | '/leagues'
     | '/privacy'
     | '/search'
+    | '/sitemap.xml'
     | '/terms'
     | '/upcoming'
+    | '/admin/ads'
+    | '/admin/competitions'
+    | '/admin/matches'
+    | '/admin/sports'
     | '/competition/$slug'
     | '/sport/$slug'
     | '/watch/$slug'
@@ -185,8 +240,13 @@ export interface FileRouteTypes {
     | '/leagues'
     | '/privacy'
     | '/search'
+    | '/sitemap.xml'
     | '/terms'
     | '/upcoming'
+    | '/admin/ads'
+    | '/admin/competitions'
+    | '/admin/matches'
+    | '/admin/sports'
     | '/competition/$slug'
     | '/sport/$slug'
     | '/watch/$slug'
@@ -202,6 +262,7 @@ export interface RootRouteChildren {
   LeaguesRoute: typeof LeaguesRoute
   PrivacyRoute: typeof PrivacyRoute
   SearchRoute: typeof SearchRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   UpcomingRoute: typeof UpcomingRoute
   CompetitionSlugRoute: typeof CompetitionSlugRoute
@@ -223,6 +284,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/search': {
@@ -309,14 +377,50 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompetitionSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/sports': {
+      id: '/admin/sports'
+      path: '/sports'
+      fullPath: '/admin/sports'
+      preLoaderRoute: typeof AdminSportsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/matches': {
+      id: '/admin/matches'
+      path: '/matches'
+      fullPath: '/admin/matches'
+      preLoaderRoute: typeof AdminMatchesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/competitions': {
+      id: '/admin/competitions'
+      path: '/competitions'
+      fullPath: '/admin/competitions'
+      preLoaderRoute: typeof AdminCompetitionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/ads': {
+      id: '/admin/ads'
+      path: '/ads'
+      fullPath: '/admin/ads'
+      preLoaderRoute: typeof AdminAdsRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
+  AdminAdsRoute: typeof AdminAdsRoute
+  AdminCompetitionsRoute: typeof AdminCompetitionsRoute
+  AdminMatchesRoute: typeof AdminMatchesRoute
+  AdminSportsRoute: typeof AdminSportsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAdsRoute: AdminAdsRoute,
+  AdminCompetitionsRoute: AdminCompetitionsRoute,
+  AdminMatchesRoute: AdminMatchesRoute,
+  AdminSportsRoute: AdminSportsRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
@@ -331,6 +435,7 @@ const rootRouteChildren: RootRouteChildren = {
   LeaguesRoute: LeaguesRoute,
   PrivacyRoute: PrivacyRoute,
   SearchRoute: SearchRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   UpcomingRoute: UpcomingRoute,
   CompetitionSlugRoute: CompetitionSlugRoute,

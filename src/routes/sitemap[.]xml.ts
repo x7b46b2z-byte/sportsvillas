@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const BASE_URL = "";
 
@@ -8,6 +7,7 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
+        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const staticPaths = ["/", "/upcoming", "/leagues", "/about", "/contact", "/privacy", "/terms"];
         const entries: { path: string; lastmod?: string; changefreq?: string; priority?: string }[] = staticPaths.map((p) => ({
           path: p,
