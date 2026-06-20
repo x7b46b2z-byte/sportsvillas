@@ -14,16 +14,259 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      advertisements: {
+        Row: {
+          click_count: number
+          code: string
+          created_at: string
+          enabled: boolean
+          id: string
+          name: string
+          type: Database["public"]["Enums"]["ad_type"]
+        }
+        Insert: {
+          click_count?: number
+          code: string
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          name: string
+          type: Database["public"]["Enums"]["ad_type"]
+        }
+        Update: {
+          click_count?: number
+          code?: string
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          name?: string
+          type?: Database["public"]["Enums"]["ad_type"]
+        }
+        Relationships: []
+      }
+      competitions: {
+        Row: {
+          created_at: string
+          id: string
+          logo_url: string | null
+          name: string
+          slug: string
+          sport_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          name: string
+          slug: string
+          sport_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          name?: string
+          slug?: string
+          sport_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "competitions_sport_id_fkey"
+            columns: ["sport_id"]
+            isOneToOne: false
+            referencedRelation: "sports"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      matches: {
+        Row: {
+          competition_id: string | null
+          created_at: string
+          description: string | null
+          embed_code: string | null
+          id: string
+          is_featured: boolean
+          match_date: string
+          meta_description: string | null
+          meta_title: string | null
+          slug: string
+          sport_id: string
+          status: Database["public"]["Enums"]["match_status"]
+          team_a: string
+          team_a_logo: string | null
+          team_b: string
+          team_b_logo: string | null
+          thumbnail: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          competition_id?: string | null
+          created_at?: string
+          description?: string | null
+          embed_code?: string | null
+          id?: string
+          is_featured?: boolean
+          match_date: string
+          meta_description?: string | null
+          meta_title?: string | null
+          slug: string
+          sport_id: string
+          status?: Database["public"]["Enums"]["match_status"]
+          team_a: string
+          team_a_logo?: string | null
+          team_b: string
+          team_b_logo?: string | null
+          thumbnail?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          competition_id?: string | null
+          created_at?: string
+          description?: string | null
+          embed_code?: string | null
+          id?: string
+          is_featured?: boolean
+          match_date?: string
+          meta_description?: string | null
+          meta_title?: string | null
+          slug?: string
+          sport_id?: string
+          status?: Database["public"]["Enums"]["match_status"]
+          team_a?: string
+          team_a_logo?: string | null
+          team_b?: string
+          team_b_logo?: string | null
+          thumbnail?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "matches_competition_id_fkey"
+            columns: ["competition_id"]
+            isOneToOne: false
+            referencedRelation: "competitions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "matches_sport_id_fkey"
+            columns: ["sport_id"]
+            isOneToOne: false
+            referencedRelation: "sports"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          email: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
+      sports: {
+        Row: {
+          created_at: string
+          icon: string | null
+          id: string
+          name: string
+          slug: string
+          sort_order: number
+        }
+        Insert: {
+          created_at?: string
+          icon?: string | null
+          id?: string
+          name: string
+          slug: string
+          sort_order?: number
+        }
+        Update: {
+          created_at?: string
+          icon?: string | null
+          id?: string
+          name?: string
+          slug?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      visitors: {
+        Row: {
+          created_at: string
+          id: string
+          page: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          page: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          page?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      ad_type:
+        | "header"
+        | "sidebar"
+        | "in_content"
+        | "sticky_mobile"
+        | "popup"
+        | "hero"
+      app_role: "admin" | "user"
+      match_status: "live" | "upcoming" | "ended"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +393,17 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      ad_type: [
+        "header",
+        "sidebar",
+        "in_content",
+        "sticky_mobile",
+        "popup",
+        "hero",
+      ],
+      app_role: ["admin", "user"],
+      match_status: ["live", "upcoming", "ended"],
+    },
   },
 } as const
