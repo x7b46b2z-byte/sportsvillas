@@ -15,8 +15,11 @@ import { Route as SearchRouteImport } from './routes/search'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LeaguesRouteImport } from './routes/leagues'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as WatchSlugRouteImport } from './routes/watch.$slug'
 import { Route as SportSlugRouteImport } from './routes/sport.$slug'
 import { Route as CompetitionSlugRouteImport } from './routes/competition.$slug'
@@ -51,6 +54,16 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -60,6 +73,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
 } as any)
 const WatchSlugRoute = WatchSlugRouteImport.update({
   id: '/watch/$slug',
@@ -80,6 +98,8 @@ const CompetitionSlugRoute = CompetitionSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/leagues': typeof LeaguesRoute
   '/privacy': typeof PrivacyRoute
@@ -89,10 +109,12 @@ export interface FileRoutesByFullPath {
   '/competition/$slug': typeof CompetitionSlugRoute
   '/sport/$slug': typeof SportSlugRoute
   '/watch/$slug': typeof WatchSlugRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/leagues': typeof LeaguesRoute
   '/privacy': typeof PrivacyRoute
@@ -102,11 +124,14 @@ export interface FileRoutesByTo {
   '/competition/$slug': typeof CompetitionSlugRoute
   '/sport/$slug': typeof SportSlugRoute
   '/watch/$slug': typeof WatchSlugRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/leagues': typeof LeaguesRoute
   '/privacy': typeof PrivacyRoute
@@ -116,12 +141,15 @@ export interface FileRoutesById {
   '/competition/$slug': typeof CompetitionSlugRoute
   '/sport/$slug': typeof SportSlugRoute
   '/watch/$slug': typeof WatchSlugRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
+    | '/auth'
     | '/contact'
     | '/leagues'
     | '/privacy'
@@ -131,10 +159,12 @@ export interface FileRouteTypes {
     | '/competition/$slug'
     | '/sport/$slug'
     | '/watch/$slug'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/leagues'
     | '/privacy'
@@ -144,10 +174,13 @@ export interface FileRouteTypes {
     | '/competition/$slug'
     | '/sport/$slug'
     | '/watch/$slug'
+    | '/admin'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
+    | '/auth'
     | '/contact'
     | '/leagues'
     | '/privacy'
@@ -157,11 +190,14 @@ export interface FileRouteTypes {
     | '/competition/$slug'
     | '/sport/$slug'
     | '/watch/$slug'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   LeaguesRoute: typeof LeaguesRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -217,6 +253,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -230,6 +280,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/watch/$slug': {
       id: '/watch/$slug'
@@ -255,9 +312,21 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteChildren {
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRouteWithChildren,
+  AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   LeaguesRoute: LeaguesRoute,
   PrivacyRoute: PrivacyRoute,
